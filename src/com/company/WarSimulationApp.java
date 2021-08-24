@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.engine.WorldEngine;
+import com.company.visualisation.Window;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,15 +12,16 @@ public class WarSimulationApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("anime loli paradise");
+        Window window = new Window();
+        Scene mainScene = new Scene(window.mainLayout);
+        primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        new WorldEngine();
+        //new WorldEngine();
         launch(args);
 
 
