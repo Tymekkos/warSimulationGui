@@ -1,12 +1,12 @@
 package com.company.visualisation;
 
 import javafx.scene.layout.BorderPane;
+import static com.company.stats.ApplicationProperties.bound;
 
 public class Window {
 
     public BorderPane mainLayout;
     private Grid grid;
-    private final int SIZE = 50;
 
     public Window(){
         this.mainLayout = new BorderPane();
@@ -17,9 +17,8 @@ public class Window {
 
         setGridLayout();
     }
-
     private void setGridLayout(){
-        grid = new Grid(SIZE);
+        grid = new Grid(bound);
         mainLayout.setCenter(grid.getGridPane());
     }
 }

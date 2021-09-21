@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import javax.swing.*;
+
 public class Grid {
 
     private final GridPane gridPane;
@@ -19,17 +21,19 @@ public class Grid {
 
         for(int i=0; i<size; i++){
             for(int j=0; j<size; j++){
-
-                Label cellLabel = new Label();
-
-                cellLabel.setStyle("-fx-background-color: mintcream;" + "-fx-border-color: black;");
-                cellLabel.setMinSize(blockSize, blockSize);
-                cellLabel.setMaxSize(blockSize, blockSize);
-                GridPane.setConstraints(cellLabel, i, j);
-                gridPane.getChildren().addAll(cellLabel);
-
+                changeCellColor(i, j, "white");
             }
         }
+    }
+
+    public void changeCellColor(int x, int y, String color) {
+        Label cellLabel = new Label();
+
+        cellLabel.setStyle("-fx-background-color: " + color + ";" + "-fx-border-color: black;");
+        cellLabel.setMinSize(blockSize, blockSize);
+        cellLabel.setMaxSize(blockSize, blockSize);
+        GridPane.setConstraints(cellLabel, x, y);
+        gridPane.getChildren().addAll(cellLabel);
     }
 
     public GridPane getGridPane() {
