@@ -12,7 +12,7 @@ public class WorldEngine {
     Grid grid;
 
     public WorldEngine(Grid grid){
-        worldMap = new WorldMap();
+        worldMap = new WorldMap(grid);
         worldMap.putCharactersOnMap(charactersNumber);
         this.grid = grid;
 

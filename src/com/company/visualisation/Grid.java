@@ -1,8 +1,10 @@
 package com.company.visualisation;
 
+import com.company.stats.ApplicationProperties;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import static com.company.stats.ApplicationProperties.bound;
 
 import javax.swing.*;
 
@@ -12,18 +14,14 @@ public class Grid {
     private final int[][] map;
     private final int blockSize;
 
-    public Grid(int size) {
+    public Grid(int bound) {
         gridPane = new GridPane();
         gridPane.setPadding(new Insets(50));
-        map = new int[size][size];
+        map = new int[ApplicationProperties.bound][ApplicationProperties.bound];
 
-        this.blockSize = 500/size;
+        this.blockSize = 500/ ApplicationProperties.bound;
 
-        for(int i=0; i<size; i++){
-            for(int j=0; j<size; j++){
-                changeCellColor(i, j, "white");
-            }
-        }
+        emptyPane();
     }
 
     public void changeCellColor(int x, int y, String color) {
@@ -36,6 +34,13 @@ public class Grid {
         gridPane.getChildren().addAll(cellLabel);
     }
 
+    public void emptyPane(){
+        for(int i=0; i<bound; i++){
+            for(int j=0; j<bound; j++){
+                changeCellColor(i, j, "white");
+            }
+        }
+    }
     public GridPane getGridPane() {
         return gridPane;
     }

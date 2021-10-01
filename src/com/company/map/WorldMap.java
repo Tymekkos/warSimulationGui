@@ -4,6 +4,7 @@ import com.company.factory.CharacterFactory;
 import com.company.factory.RandomVector2dFactory;
 import com.company.model.ICharacter;
 import com.company.util.Vector2d;
+import com.company.visualisation.Grid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +15,11 @@ import static com.company.map.WorldMapUtils.pvpForList;
 import static com.company.stats.ApplicationProperties.*;
 
 public class WorldMap {
+    private Grid grid;
     private final Map<Vector2d, List<ICharacter>> map = new HashMap<>();
 
-    public WorldMap(){
+    public WorldMap(Grid grid){
+        this.grid = grid;
         for(int i=0; i<bound; i++) {
             for(int j=0; j<bound; j++) {
                 map.put(new Vector2d(j, i), new ArrayList<>());
@@ -32,7 +35,9 @@ public class WorldMap {
         for(int i=0; i<charactersNumber; i++){
             map.get(RandomVector2dFactory.getRandomVector2d(bound)).add(CharacterFactory.getRandomCharacter());
         }
+        repaint();
     }
+
 
     public void printAllCharacters(){
         map.forEach((vector2d, iCharacters) -> iCharacters.forEach(iCharacter -> System.out.println(iCharacter.toString() + vector2d.toString())));
@@ -90,9 +95,8 @@ public class WorldMap {
         }));
     }
 
+    private void repaint() {
+
+    }
+
 }
-
-
-
-
-
