@@ -35,9 +35,7 @@ public class WorldMap {
         for(int i=0; i<charactersNumber; i++){
             map.get(RandomVector2dFactory.getRandomVector2d(bound)).add(CharacterFactory.getRandomCharacter());
         }
-        repaint();
     }
-
 
     public void printAllCharacters(){
         map.forEach((vector2d, iCharacters) -> iCharacters.forEach(iCharacter -> System.out.println(iCharacter.toString() + vector2d.toString())));
@@ -93,10 +91,15 @@ public class WorldMap {
                 }
             }
         }));
+
+        //printing characters
+        map.forEach((vector2d, iCharacters) -> {
+            if(!iCharacters.isEmpty()){
+                grid.changeCellColor(vector2d.getX(), vector2d.getY(), "black");
+            }
+            else{
+                grid.changeCellColor(vector2d.getX(), vector2d.getY(), "white");
+            }
+        });
     }
-
-    private void repaint() {
-
-    }
-
 }

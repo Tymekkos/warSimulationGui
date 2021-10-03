@@ -4,23 +4,37 @@ import com.company.consoleVisualisation.Visualisator;
 import com.company.map.WorldMap;
 import com.company.stats.ApplicationProperties;
 import com.company.visualisation.Grid;
+import javafx.application.Platform;
 
-import static com.company.stats.ApplicationProperties.charactersNumber;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.company.stats.ApplicationProperties.*;
 
 public class WorldEngine {
     WorldMap worldMap;
     Grid grid;
+    Timer timer;
+    private int days = 0;
 
     public WorldEngine(Grid grid){
+        timer = new Timer();
         worldMap = new WorldMap(grid);
         worldMap.putCharactersOnMap(charactersNumber);
         this.grid = grid;
 
-        grid.getGridPane();
-
-        for(int i = 0; i<ApplicationProperties.daysNumber; i++){
-            worldMap.day();
-            Visualisator.printWorld(worldMap);
-        }
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() ->{
+                    days++;
+                    worldMap.day();
+                    if(days > daysNumber){
+                        timer.cancel();
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 0, 800);
     }
 }
