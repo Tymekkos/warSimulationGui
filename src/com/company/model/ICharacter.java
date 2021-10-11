@@ -39,4 +39,5 @@ public interface ICharacter {
     public void restartHP();
     public int getAge();
     public void setAge(int age);
+    public String getColor();
 }

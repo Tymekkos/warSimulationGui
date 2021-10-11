@@ -12,6 +12,7 @@ public class Mage extends Character implements ICharacter{
         this.hp = hp;
         this.armor = armor;
         this.age = 0;
+        this.color = "purple";
     }
 
     @Override
@@ -71,5 +72,10 @@ public class Mage extends Character implements ICharacter{
     @Override
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String getColor() {
+        return this.color;
     }
 }

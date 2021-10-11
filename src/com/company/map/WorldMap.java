@@ -20,8 +20,8 @@ public class WorldMap {
 
     public WorldMap(Grid grid){
         this.grid = grid;
-        for(int i=0; i<bound; i++) {
-            for(int j=0; j<bound; j++) {
+        for(int i = 0; i< BOUND; i++) {
+            for(int j = 0; j< BOUND; j++) {
                 map.put(new Vector2d(j, i), new ArrayList<>());
                 }
             }
@@ -33,7 +33,7 @@ public class WorldMap {
 
     public void putCharactersOnMap(int charactersNumber){
         for(int i=0; i<charactersNumber; i++){
-            map.get(RandomVector2dFactory.getRandomVector2d(bound)).add(CharacterFactory.getRandomCharacter());
+            map.get(RandomVector2dFactory.getRandomVector2d(BOUND)).add(CharacterFactory.getRandomCharacter());
         }
     }
 
@@ -65,7 +65,7 @@ public class WorldMap {
             for(int i=0; i<iCharacters.size(); i++){
                 if(i % 2 == 1){
                     var child = CharacterFactory.getParticularCharacter(iCharacters.get(i));
-                    var newField = RandomVector2dFactory.getFieldAroundTheVector2d(vector2d, bound);
+                    var newField = RandomVector2dFactory.getFieldAroundTheVector2d(vector2d, BOUND);
                     if(map.get(newField).isEmpty()){
                         map.get(newField).add(child);
                     }
@@ -86,7 +86,7 @@ public class WorldMap {
             pvpForList(iCharacters);
             for(int i=iCharacters.size()-1; i>=1; i--){
                 var character = map.get(vector2d).get(i);
-                if(character.getAge()>=maxCharactersAge){
+                if(character.getAge()>= MAX_CHARACTERS_AGE){
                     map.get(vector2d).remove(character);
                 }
             }
@@ -95,7 +95,7 @@ public class WorldMap {
         //printing characters
         map.forEach((vector2d, iCharacters) -> {
             if(!iCharacters.isEmpty()){
-                grid.changeCellColor(vector2d.getX(), vector2d.getY(), "black");
+                grid.changeCellColor(vector2d.getX(), vector2d.getY(), iCharacters.get(iCharacters.size()-1).getColor());
             }
             else{
                 grid.changeCellColor(vector2d.getX(), vector2d.getY(), "white");

@@ -12,6 +12,7 @@ public class Assassin extends Character implements ICharacter{
         this.hp = hp;
         this.armor = armor;
         this.age = 0;
+        this.color = "red";
     }
 
     @Override
@@ -74,6 +75,9 @@ public class Assassin extends Character implements ICharacter{
         this.age = age;
     }
 
-
+    @Override
+    public String getColor() {
+        return this.color;
+    }
 }
 

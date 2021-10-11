@@ -1,8 +1,6 @@
 package com.company.engine;
 
-import com.company.consoleVisualisation.Visualisator;
 import com.company.map.WorldMap;
-import com.company.stats.ApplicationProperties;
 import com.company.visualisation.Grid;
 import javafx.application.Platform;
 
@@ -20,7 +18,7 @@ public class WorldEngine {
     public WorldEngine(Grid grid){
         timer = new Timer();
         worldMap = new WorldMap(grid);
-        worldMap.putCharactersOnMap(charactersNumber);
+        worldMap.putCharactersOnMap(CHARACTERS_NUMBER);
         this.grid = grid;
 
         TimerTask timerTask = new TimerTask() {
@@ -29,12 +27,12 @@ public class WorldEngine {
                 Platform.runLater(() ->{
                     days++;
                     worldMap.day();
-                    if(days > daysNumber){
+                    if(days > DAYS_NUMBER){
                         timer.cancel();
                     }
                 });
             }
         };
-        timer.schedule(timerTask, 0, 800);
+        timer.schedule(timerTask, 0, PERIOD);
     }
 }

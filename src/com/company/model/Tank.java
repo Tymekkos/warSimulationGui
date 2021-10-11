@@ -12,6 +12,7 @@ public class Tank extends Character implements ICharacter{
         this.hp = hp;
         this.armor = armor;
         this.age = 0;
+        this.color = "#006400";
     }
 
     @Override
@@ -77,5 +78,10 @@ public class Tank extends Character implements ICharacter{
     @Override
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String getColor() {
+        return this.color;
     }
 }

@@ -5,5 +5,5 @@ public abstract class Character {
     protected int hp;
     protected int armor;
     protected int age;
-
+    protected String color;
 }

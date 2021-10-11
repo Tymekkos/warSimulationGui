@@ -4,9 +4,7 @@ import com.company.stats.ApplicationProperties;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import static com.company.stats.ApplicationProperties.bound;
-
-import javax.swing.*;
+import static com.company.stats.ApplicationProperties.BOUND;
 
 public class Grid {
 
@@ -17,9 +15,9 @@ public class Grid {
     public Grid(int bound) {
         gridPane = new GridPane();
         gridPane.setPadding(new Insets(50));
-        map = new int[ApplicationProperties.bound][ApplicationProperties.bound];
+        map = new int[ApplicationProperties.BOUND][ApplicationProperties.BOUND];
 
-        this.blockSize = 500/ ApplicationProperties.bound;
+        this.blockSize = 500/ ApplicationProperties.BOUND;
 
         emptyPane();
     }
@@ -35,8 +33,8 @@ public class Grid {
     }
 
     public void emptyPane(){
-        for(int i=0; i<bound; i++){
-            for(int j=0; j<bound; j++){
+        for(int i = 0; i< BOUND; i++){
+            for(int j = 0; j< BOUND; j++){
                 changeCellColor(i, j, "white");
             }
         }
