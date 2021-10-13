@@ -18,6 +18,7 @@ public class Window {
     private Grid grid;
     private Button startButton, daysButton, timeButton;
     private final Font buttonFont = Font.font("Verdana", FontWeight.BOLD,16);
+    private final Font startFont = Font.font("Georgia", FontWeight.BOLD,22);
 
     public Window(){
         this.mainLayout = new BorderPane();
@@ -41,6 +42,7 @@ public class Window {
         topPanel.setSpacing(20);
         topPanel.setStyle("-fx-background-color: lightseagreen");
         topPanel.setAlignment(Pos.CENTER);
+        topPanel.setMinHeight(60);
         topPanel.getChildren().addAll(startButton);
         mainLayout.setTop(topPanel);
     }
@@ -48,34 +50,38 @@ public class Window {
     private void setButtons(){
         //start
         this.startButton = new Button("Start");
-        startButton.setStyle("-fx-background-color: #FFF0F5;"
-                + "-fx-border-width: 2;"
+        startButton.setStyle("-fx-background-color: #D8F8F6;"
+                + "-fx-border-width: 3;"
                 + "-fx-border-color: black;"
                 + "-fx-border-radius: 7;"
                 + "-fx-background-radius: 10");
-        startButton.setFont(buttonFont);
+        startButton.setMinSize(70,45);
+        startButton.setFont(startFont);
         startButton.setOnAction(e -> {
             new WorldEngine(grid);
         });
 
         //days
         this.daysButton = new Button("Days");
-        daysButton.setStyle("-fx-background-color: #FFF0F5;"
-                + "-fx-border-width: 2;"
+        daysButton.setStyle("-fx-background-color: #F8D8D9;"
+                + "-fx-border-width: 3;"
                 + "-fx-border-color: black;"
                 + "-fx-border-radius: 7;"
                 + "-fx-background-radius: 10");
+        daysButton.setMinSize(60,40);
+        daysButton.setFont(buttonFont);
         daysButton.setOnAction(e -> {
             System.out.println("dziala");
         });
 
         this.timeButton = new Button("Time");
-        timeButton.setStyle("-fx-background-color: #FFF0F5;"
-                + "-fx-border-width: 2;"
+        timeButton.setStyle("-fx-background-color: #F8D8D9;"
+                + "-fx-border-width: 3;"
                 + "-fx-border-color: black;"
                 + "-fx-border-radius: 7;"
                 + "-fx-background-radius: 10");
-        timeButton.setMinSize(80,60);
+        timeButton.setMinSize(60,40);
+        timeButton.setFont(buttonFont);
         timeButton.setOnAction(e -> {
             System.out.println("dziala");
         });
@@ -83,11 +89,11 @@ public class Window {
 
     private void setBottomPanel(){
         HBox bottomPanel = new HBox();
-        bottomPanel.setSpacing(40);
+        bottomPanel.setSpacing(50);
         bottomPanel.setStyle("-fx-background-color: #9370DB");
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(daysButton, timeButton);
-        bottomPanel.setMinHeight(100);
+        bottomPanel.setMinHeight(75);
         mainLayout.setBottom(bottomPanel);
     }
 }
