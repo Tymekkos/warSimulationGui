@@ -7,4 +7,11 @@ public class ApplicationProperties {
     public static int MAX_CHARACTERS_AGE = 15;
     public static int PERIOD = 100;
 
+    public static int getDaysNumber() {
+        return DAYS_NUMBER;
+    }
+
+    public static void setDaysNumber(int daysNumber) {
+        DAYS_NUMBER = daysNumber;
+    }
 }

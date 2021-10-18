@@ -1,16 +1,26 @@
 package com.company.visualisation;
 
 import com.company.engine.WorldEngine;
+import com.company.stats.ApplicationProperties;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.geometry.Insets;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
 import java.awt.*;
+import java.text.Normalizer;
 
 import static com.company.stats.ApplicationProperties.BOUND;
+import static com.company.stats.ApplicationProperties.getDaysNumber;
 
 public class Window {
 
@@ -71,7 +81,42 @@ public class Window {
         daysButton.setMinSize(60,40);
         daysButton.setFont(buttonFont);
         daysButton.setOnAction(e -> {
-            System.out.println("dziala");
+            System.out.println(ApplicationProperties.getDaysNumber());
+            Button confirm = new Button("confirm");
+            confirm.setMinSize(60,40);
+            confirm.setFont(buttonFont);
+
+
+            Stage daysForm = new Stage();
+            daysForm.initModality(Modality.APPLICATION_MODAL);
+            daysForm.setTitle("algo choose");
+            daysForm.setMinWidth(250);
+            daysForm.setMinHeight(250);
+
+            VBox vBox_2 = new VBox();
+            vBox_2.setSpacing(20);
+            vBox_2.setPadding(new Insets(20));
+            vBox_2.setAlignment(Pos.TOP_CENTER);
+
+            TextField daysNumber = new TextField();
+            vBox_2.getChildren().addAll(daysNumber, confirm);
+
+            confirm.setOnAction(event->{
+                Integer days;
+                    try {
+                    days = Integer.parseInt(String.valueOf(daysNumber.getCharacters()));
+                    ApplicationProperties.setDaysNumber(days);
+                }catch(NumberFormatException ex){
+                    System.out.println("nie udalo sie ");
+                }
+                System.out.println(ApplicationProperties.getDaysNumber());
+            });
+
+            daysForm.setScene(new Scene(vBox_2));
+            daysForm.show();
+            daysForm.centerOnScreen();
+
+
         });
 
         this.timeButton = new Button("Time");
