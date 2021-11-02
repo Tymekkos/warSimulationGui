@@ -1,10 +1,13 @@
 package com.company.visualisation;
 
 import com.company.engine.WorldEngine;
+import com.company.exceptions.RangeValidationException;
 import com.company.stats.ApplicationProperties;
+import com.company.validators.TimeInputValidator;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -81,7 +84,6 @@ public class Window {
         daysButton.setMinSize(60,40);
         daysButton.setFont(buttonFont);
         daysButton.setOnAction(e -> {
-            System.out.println(ApplicationProperties.getDaysNumber());
             Button confirm = new Button("confirm");
             confirm.setMinSize(60,40);
             confirm.setFont(buttonFont);
@@ -89,9 +91,9 @@ public class Window {
 
             Stage daysForm = new Stage();
             daysForm.initModality(Modality.APPLICATION_MODAL);
-            daysForm.setTitle("algo choose");
-            daysForm.setMinWidth(250);
-            daysForm.setMinHeight(250);
+            daysForm.setTitle("days choose");
+            daysForm.setMinWidth(200);
+            daysForm.setMinHeight(150);
 
             VBox vBox_2 = new VBox();
             vBox_2.setSpacing(20);
@@ -106,10 +108,10 @@ public class Window {
                     try {
                     days = Integer.parseInt(String.valueOf(daysNumber.getCharacters()));
                     ApplicationProperties.setDaysNumber(days);
+                    daysForm.close();
                 }catch(NumberFormatException ex){
                     System.out.println("nie udalo sie ");
                 }
-                System.out.println(ApplicationProperties.getDaysNumber());
             });
 
             daysForm.setScene(new Scene(vBox_2));
@@ -128,7 +130,40 @@ public class Window {
         timeButton.setMinSize(60,40);
         timeButton.setFont(buttonFont);
         timeButton.setOnAction(e -> {
-            System.out.println("dziala");
+            Button confirm = new Button("confirm");
+            confirm.setMinSize(60,40);
+            confirm.setFont(buttonFont);
+
+
+            Stage timeForm = new Stage();
+            timeForm.initModality(Modality.APPLICATION_MODAL);
+            timeForm.setTitle("time choose");
+            timeForm.setMinWidth(200);
+            timeForm.setMinHeight(150);
+
+            VBox vBox_2 = new VBox();
+            vBox_2.setSpacing(20);
+            vBox_2.setPadding(new Insets(20));
+            vBox_2.setAlignment(Pos.TOP_CENTER);
+
+            TextField time = new TextField();
+            vBox_2.getChildren().addAll(time, confirm);
+
+            confirm.setOnAction(event->{
+                int timeInput;
+                try {
+                    timeInput = Integer.parseInt(String.valueOf(time.getCharacters()));
+                    TimeInputValidator.test(timeInput);
+                    ApplicationProperties.setTime(timeInput);
+                    timeForm.close();
+                }catch(NumberFormatException | RangeValidationException ex){
+                    showAlertBox(ex.getMessage());
+                }
+            });
+
+            timeForm.setScene(new Scene(vBox_2));
+            timeForm.show();
+            timeForm.centerOnScreen();
         });
     }
 
@@ -140,5 +175,16 @@ public class Window {
         bottomPanel.getChildren().addAll(daysButton, timeButton);
         bottomPanel.setMinHeight(75);
         mainLayout.setBottom(bottomPanel);
+    }
+
+    private void showAlertBox(String message){
+        Stage alert = new Stage();
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setTitle("alert");
+        alert.setMinWidth(200);
+        alert.setMinHeight(150);
+        Label label = new Label(message);
+        alert.setScene(new Scene(label));
+        alert.show();
     }
 }

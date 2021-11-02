@@ -33,6 +33,6 @@ public class WorldEngine {
                 });
             }
         };
-        timer.schedule(timerTask, 0, PERIOD);
+        timer.schedule(timerTask, 0, TIME);
     }
 }
