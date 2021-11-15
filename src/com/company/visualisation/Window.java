@@ -4,26 +4,22 @@ import com.company.engine.WorldEngine;
 import com.company.exceptions.RangeValidationException;
 import com.company.stats.ApplicationProperties;
 import com.company.validators.TimeInputValidator;
+import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.geometry.Insets;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-
-import java.awt.*;
-import java.text.Normalizer;
 
 import static com.company.stats.ApplicationProperties.BOUND;
-import static com.company.stats.ApplicationProperties.getDaysNumber;
 
 public class Window {
 
@@ -32,6 +28,7 @@ public class Window {
     private Button startButton, daysButton, timeButton;
     private final Font buttonFont = Font.font("Verdana", FontWeight.BOLD,16);
     private final Font startFont = Font.font("Georgia", FontWeight.BOLD,22);
+    private final Font alertFont = Font.font("Verdana", FontWeight.BOLD, 16);
 
     public Window(){
         this.mainLayout = new BorderPane();
@@ -47,7 +44,16 @@ public class Window {
     }
     private void setGridLayout(){
         grid = new Grid(BOUND);
-        mainLayout.setCenter(grid.getGridPane());
+        mainLayout.setLeft(grid.getGridPane());
+        VBox statsBox = new VBox();
+        Label label = new Label("testt");
+        statsBox.getChildren().addAll(label);
+        statsBox.setSpacing(20);
+        statsBox.setStyle("-fx-background-color: lightgrey");
+        statsBox.setAlignment(Pos.CENTER);
+        statsBox.setPadding(new Insets(20));
+        statsBox.setMinWidth(120);
+        mainLayout.setRight(statsBox);
     }
 
     private void setTopPanel(){
@@ -156,8 +162,11 @@ public class Window {
                     TimeInputValidator.test(timeInput);
                     ApplicationProperties.setTime(timeInput);
                     timeForm.close();
-                }catch(NumberFormatException | RangeValidationException ex){
+                }catch(RangeValidationException ex){
                     showAlertBox(ex.getMessage());
+                }
+                catch(NumberFormatException ex) {
+                    showAlertBox("cannot parse string");
                 }
             });
 
@@ -184,7 +193,12 @@ public class Window {
         alert.setMinWidth(200);
         alert.setMinHeight(150);
         Label label = new Label(message);
-        alert.setScene(new Scene(label));
+        label.setFont(alertFont);
+        label.setTextFill(Color.web("Red"));
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(label);
+        hBox.setAlignment(Pos.CENTER);
+        alert.setScene(new Scene(hBox));
         alert.show();
     }
 }
